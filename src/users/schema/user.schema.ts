@@ -5,3 +5,11 @@ export const UserSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
 });
+
+ERROR 11000 Duplicate email
+
+{
+  error: ""
+}
+
+ExceptionFilter
