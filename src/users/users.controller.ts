@@ -25,7 +25,7 @@ export class UsersController {
     async findOne(@Param('id',checkId) id): Promise<user> {
         return await this.usersService.findOne(id);
     }
-    @Post()
+    @Post('/create')
     async create(@Body() createuser : CreateUserDto): Promise<user> {
         return await this.usersService.addUser(createuser);
 }

@@ -12,10 +12,13 @@ export class UsersService {
         return await this.UserModel.find();
     }
     async findOne(email:string): Promise<user>{
-        return await this.UserModel.findOne({email});
+      return await this.UserModel.findOne({email});
     }
     async addUser(user:user): Promise<user>{
         const newUser = new this.UserModel(user);
         return await newUser.save();
+    }
+    async update(user): Promise<user>{
+        return await this.UserModel.findOneAndUpdate({email:user.email},user);
     }
 }
