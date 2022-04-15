@@ -11,9 +11,12 @@ import config from './config/keys';
 import { UserSchema } from './users/schema/user.schema';
 import { PaymentModule } from './payments/payments.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [MongooseModule.forRoot(config.mongoUri),
+  imports: [
+    ConfigModule.forRoot({isGlobal:true}),
+    MongooseModule.forRoot(process.env.MONGO_URI),
     MongooseModule.forFeature([{ name: 'User' , schema: UserSchema }]),
     UserModule,
     PaymentModule.forRoot(config.stripeKey,{apiVersion:'2020-08-27'}),
