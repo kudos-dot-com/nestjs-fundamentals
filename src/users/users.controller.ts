@@ -1,8 +1,18 @@
-import { Controller,Post,Body,Get, Param } from '@nestjs/common';
+import { Controller,Post,Body,Get, Param, BadRequestException, ArgumentMetadata, PipeTransform } from '@nestjs/common';
 import { get } from 'http';
 import { CreateUserDto } from './dto/create-users.dto';
 import { UsersService } from './users.service';
 import { user } from './interfaces/user.interface'
+
+class checkId implements PipeTransform {
+  transform(value: any, metadata: ArgumentMetadata) {
+    if (typeof value === 'string' && /^[a-f0-9]{24}$/.test(value)) {
+      return value;
+    } else {
+      throw new BadRequestException('Error in object id');
+    }
+  }
+}
 
 @Controller('users')
 export class UsersController {
@@ -12,7 +22,7 @@ export class UsersController {
         return await this.usersService.findAll();
     }
     @Get(':id')
-    async findOne(@Param('id') id): Promise<user> {
+    async findOne(@Param('id',checkId) id): Promise<user> {
         return await this.usersService.findOne(id);
     }
     @Post()
