@@ -2,16 +2,8 @@ import { Controller,Post,Body,Get, Param, BadRequestException, ArgumentMetadata,
 import { get } from 'http';
 import { CreateUserDto } from './dto/create-users.dto';
 import { UsersService } from './users.service';
+import {checkId , ValidationPipe} from './pipes/validation.pipes';
 
-class checkId implements PipeTransform {
-  transform(value: any, metadata: ArgumentMetadata) {
-    if (typeof value === 'string' && /^[a-f0-9]{24}$/.test(value)) {
-      return value;
-    } else {
-      throw new BadRequestException('Error in object id');
-    }
-  }
-}
 
 @Controller('users')
 export class UsersController {
@@ -21,11 +13,11 @@ export class UsersController {
         return await this.usersService.findAll();
     }
     @Get(':id')
-    async findOne(@Param('id',checkId) id): Promise<CreateUserDto> {
+    async findOne(@Param('id',new checkId()) id): Promise<CreateUserDto> {
         return await this.usersService.findOne(id);
     }
     @Post('/create')
-    async create(@Body() createuser : CreateUserDto): Promise<CreateUserDto> {
+    async create(@Body(new ValidationPipe()) createuser : CreateUserDto): Promise<CreateUserDto> {
         return await this.usersService.addUser(createuser);
 }
 }
