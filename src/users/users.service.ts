@@ -37,6 +37,6 @@ export class UsersService {
         return await newUser.save();
     }
     async update(user): Promise<CreateUserDto>{
-        return await this.UserModel.findOneAndUpdate({email:user.email},user);
+        return await this.UserModel.findByIdAndUpdate(user._id,user);
     }
 }
