@@ -13,11 +13,11 @@ export class UsersController {
     async findAll(): Promise<CreateUserDto[]> {
         return await this.usersService.findAll();
     }
-    
+
     @UseGuards(LocalAuthGuard)
     @Get(':id')
     async findOne(@Param('id',new checkId()) id): Promise<CreateUserDto> {
-        return await this.usersService.findOne(id);
+        return await this.usersService.findOneById(id);
     }
 
     @UseGuards(LocalAuthGuard)

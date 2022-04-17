@@ -14,6 +14,9 @@ export class UsersService {
     async findOne(email:string): Promise<CreateUserDto>{
       return await this.UserModel.findOne({email});
     }
+    async findOneById(id:string): Promise<CreateUserDto>{
+        return await this.UserModel.findById({_id:id});
+      }
     async addUser(user:CreateUserDto): Promise<CreateUserDto>{
         const newUser = new this.UserModel(user);
         return await newUser.save();
