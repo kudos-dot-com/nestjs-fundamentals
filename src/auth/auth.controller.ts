@@ -23,7 +23,8 @@ export class AuthController {
     }
 
     // getting user  using jwt strategy 
-    @UseGuards(JwtAuthGuard)
+    // @UseGuards(JwtAuthGuard)
+    @UseGuards(LocalAuthGuard)
     @Get('profile')
     getProfile(@Request() req) {
         return req.user;

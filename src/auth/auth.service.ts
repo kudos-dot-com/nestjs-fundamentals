@@ -1,6 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { resetPass } from './dto/resetPassword.dto';
+
 
 @Injectable()
 export class AuthService {
@@ -19,15 +21,13 @@ export class AuthService {
     throw new HttpException('something went wrong', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
-  async resetPassword(body)
-  {
+  async resetPassword(body: resetPass): Promise<any> {
     const user = await this.usersService.findOne(body.email);
     if (user) {
-        user.password = body.password;
-        await this.usersService.update(user);
-        return user;
+      user.password = body.password;
+      await this.usersService.update(user);
+      return user;
     }
-    return null;
     throw new HttpException('something went wrong', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 

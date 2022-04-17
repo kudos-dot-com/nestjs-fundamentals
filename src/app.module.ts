@@ -18,8 +18,8 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({isGlobal:true}),
     MongooseModule.forRoot(process.env.MONGO_URI),
-    MongooseModule.forFeature([{ name: 'User' , schema: UserSchema }]),
     UserModule,
+    AuthModule,
     PaymentModule.forRoot(config.stripeKey,{apiVersion:'2020-08-27'}),
     AuthModule],
     
