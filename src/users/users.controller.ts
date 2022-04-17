@@ -2,7 +2,6 @@ import { Controller,Post,Body,Get, Param, BadRequestException, ArgumentMetadata,
 import { get } from 'http';
 import { CreateUserDto } from './dto/create-users.dto';
 import { UsersService } from './users.service';
-import { user } from './interfaces/user.interface'
 
 class checkId implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
@@ -18,15 +17,15 @@ class checkId implements PipeTransform {
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
     @Get()
-    async findAll(): Promise<user[]> {
+    async findAll(): Promise<CreateUserDto[]> {
         return await this.usersService.findAll();
     }
     @Get(':id')
-    async findOne(@Param('id',checkId) id): Promise<user> {
+    async findOne(@Param('id',checkId) id): Promise<CreateUserDto> {
         return await this.usersService.findOne(id);
     }
     @Post('/create')
-    async create(@Body() createuser : CreateUserDto): Promise<user> {
+    async create(@Body() createuser : CreateUserDto): Promise<CreateUserDto> {
         return await this.usersService.addUser(createuser);
 }
 }
