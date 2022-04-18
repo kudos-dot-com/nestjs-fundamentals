@@ -4,6 +4,7 @@ import { throws } from 'assert/strict';
 import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-users.dto';
 import { UserSchema } from './schema/user.schema';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -33,7 +34,10 @@ export class UsersService {
         }
     }
     async addUser(user:CreateUserDto): Promise<CreateUserDto>{
-        const newUser = new this.UserModel(user);
+        const {password,...result} = user;
+        const hash = await bcrypt.hash(password, 10);
+        const userDetails = new this.UserModel({...result,password:hash});
+        const newUser = new this.UserModel(userDetails);
         return await newUser.save();
     }
     async update(user): Promise<CreateUserDto>{
