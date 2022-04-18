@@ -11,8 +11,9 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Request() req): Promise<any> {
-        // return this.authService.login(req.user);
-        return req.user;
+        // sending an access token when login is successful
+        return this.authService.login(req.user);
+        // return req.user;
     }
     
     // reset password
