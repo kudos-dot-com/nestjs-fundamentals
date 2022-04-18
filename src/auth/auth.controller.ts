@@ -3,7 +3,7 @@ import { LocalAuthGuard } from './local-auth.guard';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import {resetPass} from './dto/resetPassword.dto'
-
+import { ValidationPipe }  from './pipes/validation.pipes';
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService: AuthService){}
@@ -17,7 +17,7 @@ export class AuthController {
     
     // reset password
     @Post('reset')
-    async reset(@Body() resetpass: resetPass ): Promise<any> {
+    async reset(@Body(new ValidationPipe()) resetpass: resetPass ): Promise<any> {
         return this.authService.resetPassword(resetpass);
         return ;
     }
