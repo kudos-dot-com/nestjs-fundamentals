@@ -18,7 +18,6 @@ export class AuthService {
       const { password, ...result } = user;
       return result;
     }
-    return null;
     throw new HttpException('something went wrong', HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
