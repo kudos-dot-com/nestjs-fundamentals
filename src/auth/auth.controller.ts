@@ -30,4 +30,11 @@ export class AuthController {
     getProfile(@Request() req) {
         return req.user;
     }
+
+    @UseGuards(LocalAuthGuard)
+    @Get('logout')
+    logout(@Request() req) {
+        return req.user;
+    }
 }
+

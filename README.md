@@ -1,3 +1,19 @@
+## About this project
+
+this is a simple nestjs project to understand the fundametals of nestjs framework and its workflow. 
+
+## Tech Stack Used
+
+1. nestjs 
+2. MongoDB
+3. expressjs
+
+## system requirements
+
+@nestjs/cli: "^8.0.0"
+npm: "^8.5.0"
+node:"^16.14.2"
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
