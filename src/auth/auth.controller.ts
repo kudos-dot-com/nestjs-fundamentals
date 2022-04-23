@@ -12,6 +12,8 @@ export class AuthController {
     @Post('login')
     async login(@Request() req): Promise<any> {
         // sending an access token when login is successful
+        // req.session.visits = req.session.visits ? req.session.visits + 1 : 1;
+        // sending access token
         return this.authService.login(req.user);
         // return req.user;
     }
@@ -24,14 +26,13 @@ export class AuthController {
     }
 
     // getting user  using jwt strategy 
-    // @UseGuards(JwtAuthGuard)
-    @UseGuards(LocalAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Get('profile')
     getProfile(@Request() req) {
         return req.user;
     }
 
-    @UseGuards(LocalAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Get('logout')
     logout(@Request() req) {
         return req.user;

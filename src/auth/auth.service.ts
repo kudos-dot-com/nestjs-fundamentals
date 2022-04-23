@@ -13,8 +13,12 @@ export class AuthService {
 
   async validateUser(username: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(username);
+    if(!user){
+      throw new HttpException('user does not exist', HttpStatus.INTERNAL_SERVER_ERROR);
+      return user;  
+    }
     const isMatch = await bcrypt.compare(pass,user.password);//comparing the bcrypt hash with the password
-    if (user && isMatch) {
+    if (isMatch) {
       const { password, ...result } = user;
       return result;
     }

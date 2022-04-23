@@ -24,7 +24,7 @@ export class UsersService {
       }
     }
     async findOneById(id:string): Promise<CreateUserDto>{
-        const user = await this.UserModel.findById({_id:id});
+        const user = await this.UserModel.findById(id);
         if(user)
         {
             return user
